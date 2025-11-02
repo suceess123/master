@@ -28,7 +28,7 @@ export const createUser = async (req, res) => {
       sect,
     } = req.body;
 
-    const profilePic = req.file ? req.file.filename : null;
+    // const profilePic = req.file ? req.file.filename : null;
 
     // ✅ Check if user already exists
     const [existingUser] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
@@ -44,8 +44,8 @@ export const createUser = async (req, res) => {
       `INSERT INTO users (
         name, email, password, phoneNumber, gender, profileFor, dateOfBirth, height, 
         country, city, state, residentialStatus, education, workExperience, occupation, 
-        income, maritalStatus, motherTongue, religion, caste, sect, profilePic
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        income, maritalStatus, motherTongue, religion, caste, sect
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
         email,
@@ -68,7 +68,6 @@ export const createUser = async (req, res) => {
         religion,
         caste,
         sect,
-        profilePic,
       ]
     );
 
@@ -91,7 +90,6 @@ export const createUser = async (req, res) => {
         gender,
         profileFor,
         dateOfBirth,
-        profilePic,
       },
       token,
     });

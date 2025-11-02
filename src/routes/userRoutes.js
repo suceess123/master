@@ -9,7 +9,6 @@ const router = express.Router();
 // ✅ Correct version
 router.post(
   '/register',
-  upload.single('profilePic'),
   validate(validation.signUp),
   usersControllers.createUser
 );
