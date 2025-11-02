@@ -141,3 +141,24 @@ export const loginUser = async (req, res) => {
       res.status(500).json({ error: 'Something went wrong' });
     }
   };
+
+// ✅ Get all users controller
+export const getAllUsers = async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM users');
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+    }
+
+    res.status(200).json({
+      message: 'All users fetched successfully',
+      users: rows,
+    });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+};
+
+

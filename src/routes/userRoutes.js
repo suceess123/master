@@ -19,4 +19,8 @@ router.post(
     usersControllers.loginUser
   );
   
+  router.post(
+    '/getallusers',
+      usersControllers.getAllUsers
+   ); 
   export default router;
