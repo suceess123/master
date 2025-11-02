@@ -1,27 +1,23 @@
-// routes/upload.js
 import express from 'express';
-import multer from 'multer';
-import fs from 'fs';
-import path from 'path';
-import * as userscontrollers from '../controllers/users.controllers.js';
+import upload from '../middlewares/uploadMiddleware.js';
+import { validate } from '../middlewares/validateMiddleware.js';
+import validation from '../validations/joi_validation.js';
+import * as usersControllers from '../controllers/users.controllers.js';
+
 const router = express.Router();
 
+// ✅ Correct version
+router.post(
+  '/register',
+  upload.single('profilePic'),
+  validate(validation.signUp),
+  usersControllers.createUser
+);
 
-// multer setup
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads/');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + '-' + file.originalname);
-//     }
-// });
-
-// const upload = multer({ storage });
-
-// POST /upload route
-router.post('/register', userscontrollers.createUser);
-
-router.post('/login', userscontrollers.login);
-
-export default router;
+router.post(
+    '/login',
+    validate(validation.login),
+    usersControllers.loginUser
+  );
+  
+  export default router;
